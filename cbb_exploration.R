@@ -81,14 +81,20 @@ ggplot(data = df_G5, aes(x = CONF, y = ADJ_T)) + geom_boxplot()+
 ggplot(data = df_O5, aes(x = CONF, y = ADJ_T)) + geom_boxplot()+ 
   labs(title = "Adjusted Tempo")
 
+
+#Plot where teams end up in the post season based on offense or defense
+ggplot(data = teams, aes(x = ADJOE, y = ADJDE, col = POSTSEASON)) + geom_point(size = 2)
+
 prob_16 <- glm(Q16 ~ ADJOE + ADJDE + ADJ_T, family = binomial(link = logit), data = teams)
 summary(prob_16)
 
+#Plot where all the teams S16 teams land in ADJOE, ADJDE
 ggplot(data = teams, aes(x = ADJOE, y = ADJDE, col = Q16)) + geom_point(size = 2)
 
 prob_4 <- glm(Q4 ~ ADJOE + ADJDE + ADJ_T, family = binomial(link = logit), data = teams)
 summary(prob_4)
 
+#Plot where all the teams F16 teams land in ADJOE, ADJDE
 ggplot(data = teams, aes(x = ADJOE, y = ADJDE, col = Q4)) + geom_point(size = 2)
 
 teams[teams$Q4 == 1,]
